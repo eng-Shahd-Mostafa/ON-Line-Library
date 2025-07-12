@@ -10,7 +10,7 @@ The platform utilizes *HTML, **CSS, **JavaScript, **AJAX, and **Python*, offerin
 ---
 
 ## 🧰 Project Structure
-
+```
 
 Online_Library/
 ├── library/              # Django app  
@@ -21,7 +21,7 @@ Online_Library/
 ├── manage.py             # Django management  
 ├── *.html                # Various front-end templates  
 └── README.md             # (This file)
-
+```
 
 ---
 
@@ -70,7 +70,7 @@ Online_Library/
 
 ### ⚙ Installation & Run
 
-bash
+```
 # Clone the repository
 git clone https://github.com/Abdelrhman-Ahmed1/Online_Library.git
 cd Online_Library
@@ -92,7 +92,7 @@ python manage.py createsuperuser
 python manage.py runserver
 
 Access the application at http://127.0.0.1:8000/.
-
+```
 ---
 
 ## 🧪 Usage
