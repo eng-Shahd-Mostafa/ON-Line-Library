@@ -1,0 +1,98 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Library Website</title>
+    <link rel="stylesheet" href="{% static 'CSS/Add-Book.css' %}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+        <script src="{% static 'JS\UserDashboard.js' %}" ></script>
+
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="logo">
+                <img src="{% static 'images/Online-Library2.svg'%}" alt="ON-Line Library Logo">
+            </div>
+            <ul class="nav-links">
+                <li><a href="{% url 'admin_dashboard' %}">Home</a></li>
+                <li><a href="{% url 'usersList' %}">Users</a></li>
+                <li><a href="{% url 'adminsList' %}">Admins</a></li>
+            </ul>
+
+                <div class="signin dropdown">
+                <a href="#" id="signin-btn"><img src="{% static 'images/userIcon1.png'%}" alt="User Icon" style="width: 16px; height: 16px;"> Profile</a>
+                <ul class="dropdown-menu" id="signin-menu">
+                    <li><a href="AdminProfile">View Profile</a></li>
+                    <li><a href="{% url 'logout' %}">Sign out</a></li>
+                </ul>
+                </div>
+
+            </nav>
+    </header>
+      
+    <div class="Container1">
+        <h2 id="add-book">Add Book</h2>
+        <form id="book-form" method="POST" enctype="multipart/form-data" action="{% url 'addBook' %}">
+            {% csrf_token %}
+            
+            <div>
+                <label for="id_title">Book Title:</label>
+                <input type="text" name="title" id="id_title" placeholder="enter book name" class="U-fill-Width" value="{{ form.title.value|default_if_none:'' }}" required>
+                {{ form.title.errors }}
+            </div>
+            
+            <div>
+                <label for="id_author">Author Name:</label>
+                <input type="text" name="author" id="id_author" placeholder="enter Author name" class="U-fill-Width" value="{{ form.author.value|default_if_none:'' }}" required>
+                {{ form.author.errors }}
+            </div>
+            
+<div>
+    <label for="id_category">Choose Category:</label>
+    <select name="category" id="id_category" class="U-fill-Width">
+        <option value="">Add new category</option>  <!-- Added this -->
+        {% for cat in form.fields.category.queryset %}
+            <option value="{{ cat.id }}" {% if form.category.value|stringformat:"s" == cat.id|stringformat:"s" %}selected{% endif %}>
+                {{ cat.name }}
+            </option>
+        {% endfor %}
+    </select>
+    {{ form.category.errors }}
+</div>
+
+<div id="new-category-div">
+    <label for="id_new_category">Or Add New Category:</label>
+    <input type="text" name="new_category" id="id_new_category" placeholder="e.g. Science Fiction" class="U-fill-Width" value="{{ form.new_category.value|default_if_none:'' }}">
+    {{ form.new_category.errors }}
+</div>
+
+
+<div>
+    <label for="id_copies">Number of Copies:</label>
+    <input type="number" name="copies" id="id_copies" min="1" value="{{ form.copies.value|default_if_none:'1' }}" class="U-fill-Width" required>
+    {{ form.copies.errors }}
+</div>
+
+            
+            <div>
+                <label for="id_description">Description:</label>
+                <textarea name="description" id="id_description" placeholder="write description about the book" class="U-fill-Width" required>{{ form.description.value|default_if_none:'' }}</textarea>
+                {{ form.description.errors }}
+            </div>
+            
+            <div>
+                <label for="id_cover">Book Cover:</label>
+                <input type="file" name="cover" id="id_cover" accept="image/*" required>
+                {{ form.cover.errors }}
+            </div>
+            
+            <button type="submit" id="button">Add Book</button>
+        </form>
+    </div>
+
+        <script src="{% static 'JS/EditBook.js'%}"></script>
+
+</body>
+</html>

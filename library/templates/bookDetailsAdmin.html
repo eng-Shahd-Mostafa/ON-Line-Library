@@ -1,0 +1,131 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ book.title }} - Book Details</title>
+  <link rel="stylesheet" href="{% static 'CSS\BookDetailsUser.css'%}" />
+    <script src="{% static 'JS\UserDashboard.js' %}" ></script>
+
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="logo">
+                <img src="{% static 'images/Online-Library2.svg'%}" alt="ON-Line Library Logo">
+            </div>
+            <ul class="nav-links">
+                <li><a href="{% url 'admin_dashboard' %}">Home</a></li>
+                <li><a href="{% url 'usersList' %}">Users</a></li>
+                <li><a href="{% url 'adminsList' %}">Admins</a></li>
+            </ul>
+
+                <div class="signin dropdown">
+                <a href="#" id="signin-btn"><img src="{% static 'images/userIcon1.png'%}" alt="User Icon" style="width: 16px; height: 16px;"> Profile</a>
+                <ul class="dropdown-menu" id="signin-menu">
+                    <li><a href="AdminProfile">View Profile</a></li>
+                    <li><a href="{% url 'logout' %}">Sign out</a></li>
+                </ul>
+                </div>
+
+            </nav>
+          <form method="GET" action="{% url 'admin_dashboard' %}" class="search-container nav-right">
+              <input type="text" name="q" placeholder="Title / Author / Category" class="search-bar" id="searchInput" value="{{ request.GET.q }}">
+              <button class="search-btn" id="search-btn">🔍</button>
+          </form>
+    </header>
+
+<div class="book-card">
+  <div class="book-cover">
+    <img src="{{ book.cover.url }}" alt="{{ book.title }}">
+  </div>
+  <div class="book-info">
+    <h2 class="book-title">{{ book.title }}</h2>
+    <div class="book-details">
+      <div class="label-col">
+        <p>Author:</p>
+        <p>Category:</p>
+        <p>Description:</p>
+        <p>Number of Copies:</p>
+        <p>Availability:</p>
+
+      </div>
+      <div class="value-col">
+        <p>{{ book.author }}</p>
+        <p>{{ book.category }}</p>
+        <p>{{ book.description }}</p>
+        <p>{{ book.copies }}</p>
+        <p>
+          {% if book.copies > 0 %}
+            <span style="color: green; font-weight: bold;">Available</span>
+          {% else %}
+            <span style="color: red; font-weight: bold;">Unavailable</span>
+          {% endif %}
+        </p>
+      </div>
+    </div>
+    <div class="buttons-back">
+        <a href="{% url 'admin_dashboard' %}"><button>Back</button></a>
+    </div>
+  </div>
+</div>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="footer-container">
+  <!-- Column 1: Logo and Description -->
+  <div class="footer-column">
+      <h2><span class="logo-icon">ON-Line</span> <span class="logo-yellow">Library</span></h2>
+      <p>Your gateway to knowledge and discovery.<br>
+      Explore, learn, and grow with us.</p>
+  </div>
+
+  <!-- Column 2: Quick Links -->
+  <div class="footer-column">
+      <h3>Quick Links</h3>
+      <ul>
+      <ul>
+      <li><a href="{% url 'admin_dashboard' %}">Home</a></li>
+      <li><a href="{% url 'adminProfile' %}">Profile</a></li>
+      <li><a href="AddBook">Add Book</a></li>
+      <li><a href="UsersList">View Users</a></li>
+      <li><a href="AdminsList">View Admins</a></li>
+      </ul>
+      </ul>
+  </div>
+
+  <!-- Column 3: Contact -->
+  <div class="footer-column">
+      <h3>Contact</h3>
+      <p><img src="{% static 'icons/email1.png'%}" class="icon"> info@online-library.com</p>
+      <p><img src="{% static 'icons/mobile.png'%}" class="icon"> +123 456 7890</p>
+      <div class="social-icons">
+      <img src="{% static 'icons/facebook.png'%}" alt="Facebook">
+      <img src="{% static 'icons/Twitter.png'%}" alt="Twitter">
+      <img src="{% static 'icons/instagram.png'%}" alt="Instagram">
+      <img src="{% static 'icons/github.png'%}" alt="GitHub">
+      </div>
+
+      <div class="subscribe">
+          <form method="POST" onsubmit="handleSubmit(event)">
+              <input type="email" id="email" placeholder="Enter your email" required>
+              <button type="submit">Subscribe</button>
+          </form>
+      </div>
+      
+      <div id="message" class="message" style="display: none;">
+          <p>Subscribe to get our latest offers & updates.</p>
+          <p>Thanks for signing up!</p>
+      </div>
+
+  </div>
+  </div>
+  <div class="footer-bottom">
+  <p>&copy; 2025 ON-Line Library. All rights reserved.</p>
+  </div>
+</footer>
+
+</body>
+</html>
+
+

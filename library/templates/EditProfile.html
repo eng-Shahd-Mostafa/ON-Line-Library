@@ -1,0 +1,104 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Edit Profile</title>
+  <link rel="stylesheet" href="{% static 'CSS\EditProfile.css' %}" />
+  <script src="{% static 'JS\UserDashboard.js' %}" ></script>
+
+</head>
+<body>
+  <header>
+    <nav class="navbar">
+      <div class="logo">
+        <img src="{% static 'images/Online-Library2.svg' %}" alt="ON-Line Library Logo">
+      </div>
+    <ul class="nav-links">
+      <li><a href="{% url 'user_dashboard' %}">Home</a></li>
+      <li><a href="{% url 'aboutUser' %}">About</a></li>
+      <li><a href="{% url 'contactUser' %}">Contact us</a></li>
+    </ul>
+    <div class="signin dropdown">
+      <a href="#" id="signin-btn"><img src="{% static 'images/userIcon1.png'%}" alt="User Icon" style="width: 16px; height: 16px;"> Profile</a>
+      <ul class="dropdown-menu" id="signin-menu">
+        <li><a href="{% url 'userProfile' %}">View Profile</a></li>
+        <li><a href="{% url 'editProfile' %}">Edit Profile</a></li>
+        <li><a href="{% url 'logout' %}">Sign out</a></li>
+      </ul>
+    </div>
+    </nav>
+  
+  
+  </header>  
+
+  <div class="form-container">
+    <div class="top-bar">Edit Your Profile</div>
+
+
+
+    <form id="edit-form" method="POST" enctype="multipart/form-data" action="{% url 'editProfile'  %}">
+      
+      {% csrf_token %}
+    <div class="profile-picture">
+      <img src="{% if request.user.profile_image %}{{ request.user.profile_image.url }}{% else %}{% static 'images/user.png' %}{% endif %}" id="profile-img" alt="Profile" />
+      <label for="profile-picture-input" class="camera-icon">
+        <input type="file" name="profile_picture" id="profile-picture-input"  accept="image/*" style="display: none;">
+        📷
+      </label>
+    </div>
+
+
+
+      <div class="form-row">
+        <div class="input-group">
+          <label>First Name<span class="required">*</span></label>
+          <input type="text" name="fName" value="{{ request.user.first_name }}">                
+        </div>
+        <div class="input-group">
+          <label>Last Name<span class="required">*</span></label>
+          <input type="text" name="lName" value="{{ request.user.last_name }}">
+        </div>
+        <div class="input-group">
+          <label>Email<span class="required">*</span></label>
+          <input type="email" name="email" value="{{ request.user.email }}">
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="input-group">
+          <label>Phone<span class="required">*</span></label>
+          <input type="text" name="phone" value="{{ request.user.phone }}">
+        </div>
+        <div class="input-group">
+          <label>Address<span class="required">*</span></label>
+          <input type="text" name="address" value="{{ request.user.address }}">
+        </div>
+        <div class="input-group">
+          <label>Favorite Category<span class="required">*</span></label>
+          <input type="text" name="category" value="{{ request.user.favorite_category }}">
+        </div>
+      </div>
+
+      <button type="submit" id="saveBtn" class="save-btn" disabled>Save Changes</button>
+      <div class="success-message" id="successMsg">Changes saved successfully!</div>
+    </form>
+  </div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const form = document.getElementById('edit-form');
+    const saveBtn = document.getElementById('saveBtn');
+    const inputs = form.querySelectorAll('input');
+
+    inputs.forEach(input => {
+      input.addEventListener('input', () => {
+        saveBtn.disabled = false;
+      });
+    });
+  });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,228 @@
+{% load static%}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>ON-Line Library</title>
+        <link rel="stylesheet" href="{% static 'CSS/UserProfile.css'%}">
+    </head>
+    <body>
+
+        <header class="header">
+  <nav class="navbar">
+    <div class="logo">
+      <img src="{% static 'images/Online-Library2.svg'%}" alt="ON-Line Library Logo">
+    </div>
+    <ul class="nav-links">
+      <li><a href="{% url 'user_dashboard' %}">Home</a></li>
+      <li><a href="{% url 'aboutUser' %}">About</a></li>
+      <li><a href="{% url 'contactUser' %}">Contact us</a></li>
+    </ul>
+    <div class="signin dropdown">
+      <a href="#" id="signin-btn"><img src="{% static 'images/userIcon1.png'%}" alt="User Icon" style="width: 16px; height: 16px;"> Profile</a>
+      <ul class="dropdown-menu" id="signin-menu">
+        <li><a href="{% url 'userProfile' %}">View Profile</a></li>
+        <li><a href="{% url 'editProfile' %}">Edit Profile</a></li>
+        <li><a href="{% url 'logout' %}">Sign out</a></li>
+      </ul>
+    </div>
+  </nav>
+        </header>
+
+        <input type="checkbox" id="checkbox-cover">
+        <input type="checkbox" id="checkbox-page1">
+        <input type="checkbox" id="checkbox-page2">
+        <div class="book">
+            <div class="cover">
+                <label for="checkbox-cover">Open</label>
+                    <div class="front">
+      <img src="{% if request.user.profile_image %}{{ request.user.profile_image.url }}{% else %}{% static 'images/Profilepic.jpg' %}{% endif %}" id="profile-img" alt="Profile" />
+
+                    </div>
+
+                    <div class="spirit-page">
+                        <p><strong>Username:</strong> {{ request.user.username }}</p><br>
+                        <p><strong>Email:</strong> {{ request.user.email }}</p><br>
+                        <p><strong>First Name:</strong> {{ request.user.first_name }}</span></p><br>
+                        <p><strong>Last Name:</strong> {{ request.user.last_name }}</p><br>
+                        <p><strong>Phone:</strong> {{ request.user.phone }}</p><br>
+                        <p><strong>Address:</strong> {{ request.user.address }}</p><br>
+                        <p><strong>Favourite Category:</strong> {{ request.user.favorite_category }}</p><br>
+                    </div>
+            </div>
+            <div class="page" id="page1">
+                <div class="front-page">
+                    <div class="page-container">
+            <div class="left-page">
+                <h2>Borrowed Books</h2>
+                <button onclick="showBooks('all')">Total Borrowed: <span id="totalBorrowed">{{ borrowed_books|length }}</span></button>
+                <button onclick="showBooks('returned')">Returned: <span id="returnedBooks">0</span></button>
+                <button onclick="showBooks('borrowed')">Currently Borrowed: <span id="currentBorrowed">0</span></button>
+            </div>
+
+                    
+<div class="right-page">
+    <h2>Book List</h2>
+    <ul id="bookList">
+    
+  <div id="returnedList">
+    {% for record in borrowed_books %}
+      {% if record.status == 'returned' %}
+        <li class="book-card" data-status="returned">
+          <strong>{{ record.book.title }}</strong><br>
+          <p>Returned on: {{ record.return_date|date:"Y-m-d H:i" }} </p>
+        </li>
+      {% endif %}
+    {% endfor %}
+  </div>
+  <div id="currentlyBorrowedList">
+    {% for record in borrowed_books %}
+      {% if record.status == 'borrowed' %}
+        <li class="book-card" data-status="borrowed" id="record-{{ record.id }}">
+          <strong>{{ record.book.title }}</strong><br>
+          <p>Borrowed on: {{ record.borrow_date|date:"Y-m-d H:i" }}</p><br>
+          <form class="return-book-form" data-id="{{ record.id }}" method="POST">
+            {% csrf_token %}
+            <button type="submit" class="returnbutton">Return</button>
+          </form>
+        </li>
+      {% endif %}
+    {% endfor %}
+  </div>
+                    </ul>
+                            <div id="return-message" style="margin-top: 10px; color: green;"></div>
+
+                </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="back-cover"></div>
+        </div>
+
+        
+<!-- Footer -->
+<footer class="footer">
+  <div class="footer-container">
+  <!-- Column 1: Logo and Description -->
+  <div class="footer-column">
+      <h2><span class="logo-icon">ON-Line</span> <span class="logo-yellow">Library</span></h2>
+      <p>Your gateway to knowledge and discovery.<br>
+      Explore, learn, and grow with us.</p>
+  </div>
+
+  <!-- Column 2: Quick Links -->
+  <div class="footer-column">
+      <h3>Quick Links</h3>
+      <ul>
+      <li><a href="{% url 'user_dashboard' %}">Home</a></li>
+      <li><a href="AboutUs">About</a></li>
+      <li><a href="ContactUs">Contact us</a></li>
+      <li><a href="Profile">Profile</a></li>
+      </ul>
+  </div>
+
+  <!-- Column 3: Contact -->
+  <div class="footer-column">
+      <h3>Contact</h3>
+      <p><img src="{% static 'icons/email1.png'%}" class="icon"> info@online-library.com</p>
+      <p><img src="{% static 'icons/mobile.png'%}" class="icon"> +123 456 7890</p>
+      <div class="social-icons">
+      <img src="{% static 'icons/facebook.png'%}" alt="Facebook">
+      <img src="{% static 'icons/Twitter.png'%}" alt="Twitter">
+      <img src="{% static 'icons/instagram.png'%}" alt="Instagram">
+      <img src="{% static 'icons/github.png'%}" alt="GitHub">
+      </div>
+
+      <div class="subscribe">
+          <form method="POST" onsubmit="handleSubmit(event)">
+              <input type="email" id="email" placeholder="Enter your email" required>
+              <button type="submit">Subscribe</button>
+          </form>
+      </div>
+      
+      <div id="message" class="message" style="display: none;">
+          <p>Subscribe to get our latest offers & updates.</p>
+          <p>Thanks for signing up!</p>
+      </div>
+
+  </div>
+  </div>
+  <div class="footer-bottom">
+  <p>&copy; 2025 ON-Line Library. All rights reserved.</p>
+  </div>
+</footer>
+
+    <script src="{% static 'JS\userProfile.js' %}" ></script>
+
+<script>
+document.querySelectorAll('.return-book-form').forEach(form => {
+    form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        const recordId = this.getAttribute('data-id');
+        const csrfToken = this.querySelector('[name=csrfmiddlewaretoken]').value;
+
+        fetch(`/library/return-book/${recordId}/`, {
+            method: 'POST',
+            headers: {
+                'X-CSRFToken': csrfToken,
+                'X-Requested-With': 'XMLHttpRequest',
+                'Content-Type': 'application/json'
+            },
+        })
+        .then(response => response.json())
+        .then(data => {
+            const messageDiv = document.getElementById('return-message');
+            if (data.success) {
+                messageDiv.textContent = data.message;
+                messageDiv.style.color = 'green';
+
+                // Find the book element
+                const bookItem = document.getElementById(`record-${recordId}`);
+                if (bookItem) {
+                    // Remove return form
+                    const form = bookItem.querySelector('.return-book-form');
+                    if (form) form.remove();
+
+                    // Update status text
+                    const returnedDate = new Date().toISOString().slice(0, 16).replace('T', ' ');
+                    const info = document.createElement('p');
+                    info.textContent = `Returned on: ${returnedDate}`;
+                    bookItem.appendChild(info);
+                    bookItem.setAttribute('data-status', 'returned');
+
+                    // Move book to returned list
+                    document.getElementById('returnedList').appendChild(bookItem);
+                }
+
+                // ✅ Update counters
+                const totalSpan = document.getElementById('totalBorrowed');
+                const returnedSpan = document.getElementById('returnedBooks');
+                const currentSpan = document.getElementById('currentBorrowed');
+
+                if (returnedSpan && currentSpan) {
+                    returnedSpan.textContent = parseInt(returnedSpan.textContent) + 1;
+                    currentSpan.textContent = parseInt(currentSpan.textContent) - 1;
+                }
+
+            } else {
+                messageDiv.textContent = "Error: " + data.message;
+                messageDiv.style.color = 'red';
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            const messageDiv = document.getElementById('return-message');
+            messageDiv.textContent = 'An unexpected error occurred while returning the book.';
+            messageDiv.style.color = 'red';
+        });
+    });
+});
+</script>
+
+
+
+
+    </body>
+</html>

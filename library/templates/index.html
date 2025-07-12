@@ -1,0 +1,156 @@
+{% load static %}
+<!DOCTYPE html>
+    <head>
+        <title>
+            ON-Line Library
+        </title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="icon" type="image/svg" href="{% static 'images\Online-Library.svg' %}">
+        <link rel="stylesheet" href="{% static 'CSS/style.css' %}">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.8.0/sql-wasm.js"></script>
+        <script src="{% static 'JS\About.js' %}"></script>        
+    </head>
+    <header class="header">
+        <div id="FullNavBar">
+            <div id="top">
+                <a href="0" class="logo">
+                    <img src="{% static 'images\Online-Library2.svg' %}" alt="Book Store Logo">
+                </a>``
+                <nav class="navbar">
+                    <div class="nav-left">
+                        <a href="0">Home</a>
+                        <a href="About">About</a>
+                        <a href="Contact">Contact us</a>
+                    </div>
+                    <div class="nav-right">
+                        <a href="SignUp" class="sign-in">
+                            <span>Sign Up</span>
+                        </a>
+                        <a href="LogIn" class="sign-in">
+                            <span>Log In</span>
+                        </a>
+                    </div>
+                </nav>
+            </div>
+            <div class="search-container">
+
+
+          <form method="GET" action="{% url 'index' %}" class="search-container">
+              <input type="text" name="q" placeholder="Title / Author / Category" class="search-bar" id="searchInput" value="{{ request.GET.q }}">
+              <button class="search-button" id="search-btn">🔍</button>
+          </form>
+
+            </div>
+        </div>
+        <div id="magic">
+            <div id="left">
+                <div id="Label">Welcome to ON-Line Library</div>
+                <div id="Label2">Discover +10000 e-books</div>
+            </div>
+            <div id="right">
+                
+            </div>
+        </div>    
+        
+    </header>
+    <br><br>
+    <body>
+        <div id="second-article">
+            <div id="sub-article2">
+                <div id="subsub2">
+                <img src="{% static 'images\search.jpg' %}" width="200">
+                <p>Find your favorite<br>book in seconds!</p>
+                </div>
+                
+                <div id="subsub2">
+                <img src="{% static 'images\bookss.jpg' %}" width="200">
+                <p>More than 10 thousand<br>online books</p>
+                </div>
+                
+                <div id="subsub2">
+                <img src="{% static 'images\shakehand.jpg' %}" width="250">
+                <p>Your trusted source for<br>books and knowledge.</p>
+                </div>
+            </div>
+        </div>
+        <br><br>
+        <div>
+            <label for="_book"><span>📚 The Latest Books</span></label>
+        <div id="booksContainer" class="books-container">
+          {% for book in books %}
+            <div class="book-card">
+              <img src="{{ book.cover.url }}" alt="{{ book.title }}" />
+              <h3>Title: {{ book.title }}</h3>
+              <br>
+              <a href="{% url 'BookDetails' book.id %}" class="btn-detail">Details</a>
+            </div>
+          {% endfor %}
+        </div>
+            <div id="pagination">
+                <!-- Pagination buttons will be generated here -->
+            </div>
+            
+                      
+        </div>
+        <br><br><br>
+        <footer class="footer">
+            <div class="footer-container">
+            <!-- Column 1: Logo and Description -->
+            <div class="footer-column">
+                <h2><span class="logo-icon">ON-Line</span> <span class="logo-yellow">Library</span></h2>
+                <p>Your gateway to knowledge and discovery.<br>
+                Explore, learn, and grow with us.</p>
+            </div>
+          
+            <!-- Column 2: Quick Links -->
+            <div class="footer-column">
+                <h3>Quick Links</h3>
+                <ul>
+                <li><a href="0">Home</a></li>
+                <li><a href="0">About</a></li>
+                <li><a href="0">Books</a></li>
+                <li><a href="0">Contact</a></li>
+                <li><a href="0">View List</a></li>
+                </ul>
+            </div>
+          
+            <!-- Column 3: Contact -->
+            <div class="footer-column">
+                <h3>Contact</h3>
+                <p><img src="{% static 'icons/email1.png'%}" class="icon"> info@online-library.com</p>
+                <p><img src="{% static 'icons/mobile.png'%}" class="icon"> +123 456 7890</p>
+                <div class="social-icons">
+                <img src="{% static 'icons/facebook.png'%}" alt="Facebook">
+                <img src="{% static 'icons/Twitter.png'%}" alt="Twitter">
+                <img src="{% static 'icons/instagram.png'%}" alt="Instagram">
+                <img src="{% static 'icons/github.png'%}" alt="GitHub">
+                </div>
+          
+                <div class="subscribe">
+                    <form method="POST" onsubmit="handleSubmit(event)">
+                        <input type="email" id="email" placeholder="Enter your email" required>
+                        <button type="submit">Subscribe</button>
+                    </form>
+                </div>
+                
+                <div id="message" class="message" style="display: none;">
+                    <p>Subscribe to get our latest offers & updates.</p>
+                    <p>Thanks for signing up!</p>
+                </div>
+          
+            </div>
+            </div>
+            <div class="footer-bottom">
+            <p>&copy; 2025 ON-Line Library. All rights reserved.</p>
+            </div>
+          </footer>
+
+
+
+
+    </body>
+
+
+
+</html>

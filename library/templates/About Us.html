@@ -1,0 +1,146 @@
+{% load static%}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ON-Line Library</title>
+  <link rel="stylesheet" href="{% static 'CSS/About Us.css'%}" />
+</head>
+<body>
+  <header>
+    <nav class="navbar">
+      <div class="logo">
+        <img src="{% static 'images/Online-Library2.svg'%}" alt="ON-Line Library Logo">
+      </div>
+      <ul class="nav-links">
+        <li><a href="0">Home</a></li>
+        <li><a href="About">About</a></li>
+        <li><a href="Contact">Contact us</a></li>
+        <li><a href="SignUp">Sign up</a></li>
+        <li><a href="LogIn">Log in</a></li>
+      </ul>
+      
+
+      
+                        
+       
+      
+    </nav>
+  
+    {% comment %} <div class="search-container">
+      <input type="text" id="search-input" placeholder="Title / Author / Category" />  
+      <button class="search-btn" id="search-btn">🔍</button>
+    </div> {% endcomment %}
+  
+  </header>
+
+  <main class="container">
+    <section class="section reveal">
+      <h2>Who We Are</h2>
+      <p>
+        We are an online library committed to spreading knowledge and making books accessible to everyone with fast, modern service.
+      </p>
+    </section>
+
+    <section class="section reveal">
+      <h2>Our Vision</h2>
+      <p>
+        To be the leading source of reading and knowledge across the Arab world through a unique user experience and diverse content.
+      </p>
+    </section>
+
+    <section class="section reveal">
+      <h2>Our Values</h2>
+      <div class="values">
+        <div class="value-box">
+          <strong>Transparency</strong>
+          <p>We believe in clear and honest communication with our users and partners.</p>
+        </div>
+        <div class="value-box">
+          <strong>Innovation</strong>
+          <p>We continuously seek new ways to enhance your experience.</p>
+        </div>
+        <div class="value-box">
+          <strong>Respect</strong>
+          <p>We respect every reader’s needs and preferences.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section reveal">
+      <h2>Meet Our Team</h2>
+      <div class="team">
+        <div class="member">
+          <img src="{% static 'images/manager.png'%}" alt="Team Member" />
+          <p>General Manager</p>
+        </div>
+        <div class="member">
+          <img src="{% static 'images/Market.png'%}" alt="Team Member" />
+          <p>Marketing</p>
+        </div>
+        <div class="member">
+          <img src="{% static 'images/Support.png'%}" alt="Team Member" />
+          <p>Support</p>
+        </div>
+      </div>
+    </section>
+    </main>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="footer-container">
+  <!-- Column 1: Logo and Description -->
+  <div class="footer-column">
+      <h2><span class="logo-icon">ON-Line</span> <span class="logo-yellow">Library</span></h2>
+      <p>Your gateway to knowledge and discovery.<br>
+      Explore, learn, and grow with us.</p>
+  </div>
+
+  <!-- Column 2: Quick Links -->
+  <div class="footer-column">
+      <h3>Quick Links</h3>
+      <ul>
+      <li><a href="">Home</a></li>
+      <li><a href="">About</a></li>
+      <li><a href="">Books</a></li>
+      <li><a href="">Contact</a></li>
+      <li><a href="">View List</a></li>
+      </ul>
+  </div>
+
+  <!-- Column 3: Contact -->
+  <div class="footer-column">
+      <h3>Contact</h3>
+      <p><img src="{% static 'icons/email1.png'%}" class="icon"> info@online-library.com</p>
+      <p><img src="{% static 'icons/mobile.png'%}" class="icon"> +123 456 7890</p>
+      <div class="social-icons">
+      <img src="{% static 'icons/facebook.png'%}" alt="Facebook">
+      <img src="{% static 'icons/Twitter.png'%}" alt="Twitter">
+      <img src="{% static 'icons/instagram.png'%}" alt="Instagram">
+      <img src="{% static 'icons/github.png'%}" alt="GitHub">
+      </div>
+
+      <div class="subscribe">
+          <form method="POST" onsubmit="handleSubmit(event)">
+              <input type="email" id="email" placeholder="Enter your email" required>
+              <button type="submit">Subscribe</button>
+          </form>
+      </div>
+      
+      <div id="message" class="message" style="display: none;">
+          <p>Subscribe to get our latest offers & updates.</p>
+          <p>Thanks for signing up!</p>
+      </div>
+
+  </div>
+  </div>
+  <div class="footer-bottom">
+  <p>&copy; 2025 ON-Line Library. All rights reserved.</p>
+  </div>
+</footer>
+
+<script src="{% static 'JS\About.js'%}"></script>
+</body>
+</html>

@@ -1,0 +1,139 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Sign Up</title>
+    <link rel="stylesheet" href="{% static 'CSS/Register.css'%}">
+  </head>
+
+  <body>
+    <img class="logo" src="{% static 'images/Online-Library.svg'%}" alt="logo" />
+    <div class="container">
+      
+
+      <form method="POST" id="signup-form">
+        {% csrf_token %}
+
+
+        <h1>Sign Up</h1>
+
+        <div class="input-box">
+          <input
+            type="text"
+            name="username"
+            id="username"
+            required
+            placeholder="Username"
+          />
+        </div>
+
+        <div class="input-box">
+          <input
+            type="email"
+            name="email"
+            id="email"
+            required
+            placeholder="Email"
+          />
+        </div>
+
+        <div class="input-box">
+          <input
+            type="password"
+            name="password"
+            id="password"
+            required
+            placeholder="Password"
+          />
+        </div>
+
+        <div class="input-box">
+          <input
+            type="password"
+            name="confirm-password"
+            id="confirm-password"
+            required
+            placeholder="Confirm Password"
+          />
+        </div>
+
+<div class="toggleContainer">
+  <span>User</span>
+  <div class="toggle"></div>
+  <span>Admin</span>
+</div>
+
+
+        <div class="input-box" id="admin-pin-box" style="display: none;">
+          <input type="password" 
+          name="admin-pin" 
+          id="admin-pin" 
+          placeholder="Enter Admin PIN" />
+
+        </div>
+        
+          <p id="response-message" style="color:red; margin-top: 10px;"></p>
+        <button type="submit" class="btn" >Sign Up</button>
+
+
+
+        <div class="login-link">
+          <p>Already have an account? <a href="LogIn">Login</a></p>
+        </div>
+        
+      </form>
+    </div>
+    <script>
+
+      const toggle = document.querySelector(".toggle");
+  const pinBox = document.getElementById("admin-pin-box");
+  let isAdmin = 0;
+
+  toggle.addEventListener("click", () => toggle.classList.toggle("active"));
+  toggle.addEventListener("click", () => (isAdmin = 1 - isAdmin));
+  toggle.addEventListener("click", () => (pinBox.style.display = isAdmin ? "block" : "none"));
+
+  document.getElementById('signup-form').addEventListener('submit', async function(e) {
+    e.preventDefault();
+
+    const form = e.target;
+    const formData = new FormData(form);
+    const messageBox = document.getElementById("response-message");
+
+    if (isAdmin) {
+      const pin = document.getElementById("admin-pin").value.trim();
+      if (pin !== "1234") {
+        messageBox.style.color = "red";
+        messageBox.textContent = "Invalid Admin PIN. Access denied.";
+        return; // Stop submission
+      }
+    }
+
+    formData.append("is_admin", isAdmin); // Send role info
+
+    const response = await fetch("{% url 'signup' %}", {
+      method: "POST",
+      headers: {
+        'X-Requested-With': 'XMLHttpRequest',
+        'X-CSRFToken': formData.get('csrfmiddlewaretoken'),
+      },
+      body: formData
+    });
+
+    const data = await response.json();
+
+    if (data.success) {
+      messageBox.style.color = "green";
+      messageBox.textContent = data.message;
+      setTimeout(() => window.location.href = "{% url 'login' %}", 1500);
+    } else {
+      messageBox.style.color = "red";
+      messageBox.textContent = data.message;
+    }
+  });
+    </script>
+ 
+
+  </body>
+</html>

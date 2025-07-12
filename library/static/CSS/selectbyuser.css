@@ -1,0 +1,326 @@
+* {
+    font-family: Arial, sans-serif;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+}
+
+*::selection {
+    background: #867351eb;
+    color: #fff;
+}
+
+body {
+    background-color: rgba(193, 154, 122, 0.5);
+    background-size: contain;
+    background-position: center;
+    background-attachment: fixed;
+    align-items: center;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+body::after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    background-attachment: fixed;
+    background: rgba(255, 255, 255, 0.1111);
+    z-index: -1;
+}
+
+.header {
+    position: relative;
+    margin: 0;
+    padding: 0;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 20px 30px;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    align-items: center;
+    backdrop-filter: blur(10px);
+    transition: box-shadow 0.3s;
+    background-image: url("nav_back1.jpg");
+    background-size: cover; 
+    background-position: center; 
+    background-attachment: fixed; 
+    height: 85px;
+}
+
+#top {
+    display: flex;
+    justify-content: space-between; 
+    align-items: center;
+    width: 100%;
+    height: 70px;
+}
+
+#Label {
+    color: white;
+    margin-bottom: 160px;
+    font-size: xx-large;
+    font-weight: bolder;
+    width: 50%;
+    text-align: center;
+    padding: 0;
+    line-height: 1.6;
+}
+
+.header:hover {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.logo img {
+    height: 120px;
+    width: 120px; 
+    display: block;
+    object-fit: contain;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    margin-right: 30px; 
+}
+
+.logo img:hover {
+    animation: wiggle 0.5s ease-in-out;
+}
+
+@keyframes wiggle {
+    0% { transform: rotate(0deg); }
+    25% { transform: rotate(3deg); }
+    50% { transform: rotate(-3deg); }
+    75% { transform: rotate(2deg); }
+    100% { transform: rotate(0deg); }
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.nav-left {
+    display: flex;
+    gap: 20px; /* مسافة بين اللوجو وHome */
+    align-items: center;
+}
+
+.nav-right {
+    display: flex;
+    align-items: center;
+    margin-left: auto; /* هذا سيجعل Sign in في أقصى اليمين */
+}
+
+.navbar a {
+    font-weight: 900;
+    font-size: 18px;
+    color: #ffffff;
+    text-decoration: none;
+    margin-left: 20px;/*70*/
+    position: relative;
+    transition: color 0.3s ease-in-out;
+}
+
+.navbar a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 3px;
+    bottom: 1px;
+    left: 0;
+    background-color: #d8bc89; 
+    transition: width 0.3s ease-in-out;
+    border-radius: 5px;
+}
+
+.navbar a:hover {
+    color: #d8bc89;
+}
+
+.navbar a:hover::after {
+    width: 100%;
+}
+
+.sign-in {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+#FullNavBar {
+    display: flex;
+    flex-direction: column; 
+    align-items: flex-start;
+    width: 100%;
+}
+
+.book {
+    margin-top: 0;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(235, 230, 230, 0.799); 
+    backdrop-filter: blur(4px);
+    padding: 15px;
+    border-radius: 15px;
+    font-size: 18px;
+}
+
+.book-image {
+    width: 200px;
+    height: 250px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.book p {
+    margin-bottom: 10px;
+    margin-left: 15px;
+    text-align: left;
+    width: 95%;
+}
+
+.book .button-container {
+    display: flex;
+    justify-content: center;  /* لتوسيط الأزرار */
+    gap: 20px; /* المسافة بين الأزرار */
+    width: 100%;  /* لتوسيع العنصر وضمان وضع الأزرار في المنتصف */
+}
+
+.back-button {
+    padding: 10px 20px;
+    margin: 10px;
+    background-color: #9e6d42;
+    color: #fff;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.back-button:hover {
+    background-color: #ede0cf;
+    color: #4e342e;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+
+.search-container {
+    display: flex;
+    align-items: center;
+    background: white;
+    border-radius: 25px;
+    padding: 5px;
+    width: 300px;
+    margin-left: 20px;
+    position: relative;
+}
+
+.search-button {
+    order: 1;
+    cursor: pointer;
+    height: 30px;
+    width: 30px;
+    border: none;
+    transition: transform 0.3s ease, color 0.3s;
+    background: none;
+    margin-right: 10px;
+}
+
+.search-button:hover {
+    transform: scale(1.2);
+}
+
+.search-bar {
+    border: none;
+    outline: none;
+    font-size: 14px;
+    width: 100%;
+    padding: 10px 40px 10px 10px;
+    border-radius: 25px;
+}
+
+.footer {
+    background-color: #493f37     ;
+    color: #fff;
+    /* padding: 40px 0; */
+    position: relative;
+    width: 100%;
+}
+
+.footer-container {
+    display: flex;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.footer-left, .footer-right {
+    width: 45%;
+}
+
+.footer-left h4, .footer-right h4 {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 15px;
+    position: relative;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #d8bc89;
+    display: inline-block;
+}
+
+.footer-left ul, .footer-right ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-left li, .footer-right li {
+    margin: 10px 0;
+    font-size: 16px;
+    transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.footer-left li:hover, .footer-right li:hover {
+    transform: translateX(4px);
+    color: #d8bc89;
+}
+
+.footer-left a, .footer-right a {
+    color: #fff;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    transition: color 0.3s ease;
+}
+
+.footer-left a:hover, .footer-right a:hover {
+    color: #d8bc89;
+}
+
+.footer-right a i {
+    margin-right: 10px;
+}
+
+.footer-bottom {
+    background-color: #8e7c6db5;
+    text-align: center;
+    padding: 15px 0;
+    margin-top: 20px;
+    font-size: 14px;
+}
+
+.footer-bottom p {
+    margin: 0;
+}
+
+.footer-container i {
+    font-size: 18px;
+    transition: transform 0.3s ease;
+}
+
+.footer-container i:hover {
+    transform: scale(1.2);
+}
